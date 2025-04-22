@@ -155,6 +155,7 @@ public class CounterPage extends Components {
         orderContainer.setLayout(new BorderLayout());
         denomination = new Denomination("denomination");
         orderContainer.add(denomination, BorderLayout.WEST);
+        //to be change
         orderContainer.add(new OrderTable(component_name), BorderLayout.EAST);
         // end order container
 
