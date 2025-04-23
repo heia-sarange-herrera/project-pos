@@ -121,7 +121,7 @@ public class HomeController {
                     container.handle_click(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            System.out.println("Hello World");
+                            
 
                             if (container.getComponentName().equals("Documents and Office Prints")) {
                                 view.getMainContent().getCounterPage().getMenuContainerWrapperLayout().show(

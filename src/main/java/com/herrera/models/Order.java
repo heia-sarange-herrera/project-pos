@@ -6,12 +6,14 @@ import com.herrera.views.components.reusable.ProductContainer;
 
 public class Order {
     
-    List<ProductContainer> orderList;
-    private int order_number;
+    private List<ProductContainer> productsList;
+    
+    public List<ProductContainer> getProductsList() {
+        return productsList;
+    }
 
-
-    public void addToOrderList(ProductContainer product){
-        orderList.add(product);
+    public void addToProductList(ProductContainer product){
+        productsList.add(product);
     }
 
 }
