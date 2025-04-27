@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.herrera.models.OrderData;
 import com.herrera.views.components.home.HomeMenu;
@@ -121,7 +123,6 @@ public class HomeController {
                     container.handle_click(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            
 
                             if (container.getComponentName().equals("Documents and Office Prints")) {
                                 view.getMainContent().getCounterPage().getMenuContainerWrapperLayout().show(
@@ -170,6 +171,34 @@ public class HomeController {
                 }
 
             });
+        });
+
+        view.getMainContent().getCounterPage().getTable().handle_void_button(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (view.getMainContent().getCounterPage().getTable().getSelectedRowIndex() < 0) {
+                    JOptionPane.showMessageDialog(view, "select row first to remove or void from order.", null, 0);
+                } else {
+                    int optionChoosed = JOptionPane.showConfirmDialog(view,
+                            String.format("Do you wish to void order [ %s ]",
+                                    view.getMainContent().getCounterPage().getTable().getProductName()),
+                            "Void", 0);
+
+                    switch (optionChoosed) {
+                        case 0:
+                            view.getMainContent().getCounterPage().getTable()
+                                    .removeFromTable(
+                                            view.getMainContent().getCounterPage().getTable().getSelectedRowIndex());
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+            }
+
         });
 
     }
