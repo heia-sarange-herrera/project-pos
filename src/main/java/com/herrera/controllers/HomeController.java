@@ -175,7 +175,7 @@ public class HomeController {
 
         view.getMainContent().getCounterPage().getTable().handle_void_button(new ActionListener() {
 
-            @Override
+            @Override 
             public void actionPerformed(ActionEvent e) {
                 if (view.getMainContent().getCounterPage().getTable().getSelectedRowIndex() < 0) {
                     JOptionPane.showMessageDialog(view, "select row first to remove or void from order.", null, 0);
