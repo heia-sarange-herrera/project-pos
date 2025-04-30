@@ -3,6 +3,7 @@ package com.herrera.views.components.home.counterPage;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 
@@ -15,6 +16,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.herrera.models.OrderContextModel;
 import com.herrera.views.components.Components;
 import com.herrera.views.components.themes.Themes;
 
@@ -26,20 +28,25 @@ public class OrderTable extends Components {
     String[] columnName = { "Product", "Price" };
     JPanel crudContainer;
     JButton voidBtn;
-
-
-    public OrderTable(String component_name) {
+    JLabel totalLabel;
+    OrderContextModel orderContextModel;
+    String str_price ="0.0";
+    public OrderTable(String component_name, OrderContextModel ordrContextModel) {
         super(component_name);
 
         // this
         setLayout(new BorderLayout());
         // instantiate properties
-
+        // prop
+        this.orderContextModel = ordrContextModel;
+        totalLabel = new JLabel(String.format("Total: Php  %s", String.valueOf(str_price)));
+        totalLabel.setFont(new Font("Seogoe UI", Font.BOLD, 20));
         crudContainer = new JPanel(new FlowLayout(FlowLayout.LEADING));
         voidBtn = new JButton("Void");
         voidBtn.setPreferredSize(new Dimension(100, 33));
         crudContainer.setPreferredSize(new Dimension(450, 55));
         crudContainer.add(voidBtn);
+        crudContainer.add(totalLabel);
         orderTableModel = new DefaultTableModel(columnName, 0);
         orderTable = new JTable(orderTableModel) {
             @Override
@@ -66,8 +73,6 @@ public class OrderTable extends Components {
         this.orderTable.getSelectionModel().addListSelectionListener(e);
     }
 
-    
-
     public int getSelectedRowIndex() {
         return this.orderTable.getSelectedRow();
     }
@@ -76,13 +81,21 @@ public class OrderTable extends Components {
         return this.orderTable.getSelectedColumn();
     }
 
-    public void removeFromTable(int index){
+    public void removeFromTable(int index) {
         this.orderTableModel.removeRow(index);
     }
 
-    public Object getProductName(){
+    public Object getProductName() {
         return this.orderTable.getValueAt(this.getSelectedRowIndex(), 0);
     }
 
+    public Double getProductPrice() {
+        return Double
+                .parseDouble(this.orderTable.getValueAt(this.getSelectedRowIndex(), 1).toString().replace("Php ", ""));
+    }
+
+    public void setTotalLabel(String total) {
+        this.totalLabel.setText(String.format("Total: Php  %s", String.valueOf(total)));
+    }
 
 }

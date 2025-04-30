@@ -175,7 +175,7 @@ public class HomeController {
 
         view.getMainContent().getCounterPage().getTable().handle_void_button(new ActionListener() {
 
-            @Override 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (view.getMainContent().getCounterPage().getTable().getSelectedRowIndex() < 0) {
                     JOptionPane.showMessageDialog(view, "select row first to remove or void from order.", null, 0);
@@ -187,6 +187,14 @@ public class HomeController {
 
                     switch (optionChoosed) {
                         case 0:
+                            view.getMainContent().getCounterPage().getOrderContextModel().subtractTotalOrderPrice(
+                                    view.getMainContent().getCounterPage().getTable().getProductPrice());
+                            view.getMainContent().getCounterPage().getTable().setTotalLabel(String.valueOf(
+                                    view.getMainContent().getCounterPage().getOrderContextModel()
+                                            .getTotalOrderPrice()));
+                            System.out.println("Total Order Price: "
+                                    + view.getMainContent().getCounterPage().getOrderContextModel()
+                                            .getTotalOrderPrice());
                             view.getMainContent().getCounterPage().getTable()
                                     .removeFromTable(
                                             view.getMainContent().getCounterPage().getTable().getSelectedRowIndex());

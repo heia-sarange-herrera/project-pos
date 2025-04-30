@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.herrera.models.Order;
+import com.herrera.models.OrderContextModel;
 import com.herrera.views.components.Components;
 import com.herrera.views.components.home.counterPage.subcategory.CategorySubs;
 import com.herrera.views.components.reusable.ProductCategoryContainer;
@@ -32,6 +33,7 @@ public class CounterPage extends Components {
     JButton btnMenu, btnOrder;
     Denomination denomination;
     JScrollPane menuContainerScroller;
+    OrderContextModel orderContextModel = new OrderContextModel();
 
     CardLayout menuContainerCardCategoryLayout, menuContainerWrapperLayout;
     List<ProductCategoryContainer> pls;
@@ -41,7 +43,7 @@ public class CounterPage extends Components {
         super(component_name);
 
         // setup containers
-        table = new OrderTable("Table");
+        table = new OrderTable("Table", this.orderContextModel);
         groupButtonContainer = new JPanel();
         counterContainer = new JPanel();
         menuContainer = new JPanel();
@@ -74,7 +76,8 @@ public class CounterPage extends Components {
                 new ProductContainer("product-component", "Photo Copy", .75),
                 new ProductContainer("product-component", "Print Colored", 3),
                 new ProductContainer("product-component", "Print Black", 1),
-                new ProductContainer("product-component", "Document Scan", 5)), this.table), BorderLayout.CENTER);
+                new ProductContainer("product-component", "Document Scan", 5)), this.table, orderContextModel),
+                BorderLayout.CENTER);
         DocumentsandOfficeSub.add(createBackButton(), BorderLayout.SOUTH);
         //
         PhotoPrintsSub = new JPanel();
@@ -85,7 +88,8 @@ public class CounterPage extends Components {
                         new ProductContainer("product-component", "Package 3", 45),
                         new ProductContainer("product-component", "Package 4", 55),
                         new ProductContainer("product-component", "Package 5", 75),
-                        new ProductContainer("product-component", "A4 Size", 99)), this.table),
+                        new ProductContainer("product-component", "A4 Size", 99)),
+                this.table, orderContextModel),
                 BorderLayout.CENTER);
         PhotoPrintsSub.add(this.createBackButton(), BorderLayout.SOUTH);
         //
@@ -96,7 +100,8 @@ public class CounterPage extends Components {
                         new ProductContainer("product-component", "Flyers (per 10pc)", 10),
                         new ProductContainer("product-component", "Customized Invoiced (per pad)", 25),
                         new ProductContainer("product-component", "Letterheads (per 1pg)", .75),
-                        new ProductContainer("product-component", "Company ID's (per 1pc)", 20)), this.table),
+                        new ProductContainer("product-component", "Company ID's (per 1pc)", 20)),
+                this.table, orderContextModel),
                 BorderLayout.CENTER);
         BusinessEssentialsSub.add(this.createBackButton(), BorderLayout.SOUTH);
         //
@@ -106,7 +111,8 @@ public class CounterPage extends Components {
                 new ProductContainer("product-component", "Tarps 1-50cm", 100),
                 new ProductContainer("product-component", "Tarps 51-79cm", 200),
                 new ProductContainer("product-component", "Tarps 80-100cm", 500),
-                new ProductContainer("product-component", "B-Day Tarps", 250)), this.table), BorderLayout.CENTER);
+                new ProductContainer("product-component", "B-Day Tarps", 250)), this.table, orderContextModel),
+                BorderLayout.CENTER);
         PromotionalMaterialsSub.add(this.createBackButton(), BorderLayout.SOUTH);
         //
         CustomizedItemsSub = new JPanel();
@@ -115,7 +121,8 @@ public class CounterPage extends Components {
                 new ProductContainer("product-component", "Mug (per 1pc)", 50),
                 new ProductContainer("product-component", "Shirts (per 1pc)", 99),
                 new ProductContainer("product-component", "Tote Bag (per 1pc)", 99),
-                new ProductContainer("product-component", "Keychain (per 1pc)", 45)), this.table), BorderLayout.CENTER);
+                new ProductContainer("product-component", "Keychain (per 1pc)", 45)), this.table, orderContextModel),
+                BorderLayout.CENTER);
         CustomizedItemsSub.add(this.createBackButton(), BorderLayout.SOUTH);
         //
         //
@@ -124,7 +131,8 @@ public class CounterPage extends Components {
         TypingJobSub.add(new CategorySubs("TypingJobSub", Arrays.asList(
                 new ProductContainer("product-component", "Resume", 30),
                 new ProductContainer("product-component", "Resignation Letter", 30),
-                new ProductContainer("product-component", "Other Types (per page)", 35)), this.table), BorderLayout.CENTER);
+                new ProductContainer("product-component", "Other Types (per page)", 35)), this.table,
+                orderContextModel), BorderLayout.CENTER);
         TypingJobSub.add(this.createBackButton(), BorderLayout.SOUTH);
         //
         menuContainerWrapperLayout = new CardLayout();
@@ -230,7 +238,12 @@ public class CounterPage extends Components {
     public Order getOrder() {
         return order;
     }
-    public OrderTable getTable(){
+
+    public OrderTable getTable() {
         return this.table;
+    }
+
+    public OrderContextModel getOrderContextModel() {
+        return orderContextModel;
     }
 }
