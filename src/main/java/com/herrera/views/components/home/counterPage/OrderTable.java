@@ -25,6 +25,8 @@ public class OrderTable extends Components {
     JTable orderTable;
     JScrollPane orderTableScrollPane;
     DefaultTableModel orderTableModel;
+    
+
     String[] columnName = { "Product", "Price" };
     JPanel crudContainer;
     JButton voidBtn;
@@ -97,5 +99,7 @@ public class OrderTable extends Components {
     public void setTotalLabel(String total) {
         this.totalLabel.setText(String.format("Total: Php  %s", String.valueOf(total)));
     }
-
+    public void clear_table() {
+        this.orderTableModel.setRowCount(0);
+    }
 }

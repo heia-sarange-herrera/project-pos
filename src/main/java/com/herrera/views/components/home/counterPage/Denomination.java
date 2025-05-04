@@ -3,6 +3,7 @@ package com.herrera.views.components.home.counterPage;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class Denomination extends Components {
         labelsContainer.add(label_total, BorderLayout.EAST);
 
         // otherActionJPanel
-        btn_senior = new OtherActionButton("Senior Discount", 20);
-        btn_pwd = new OtherActionButton("PWDD", 35);
-        btn_empd = new OtherActionButton("EMPD", 20);
+        btn_senior = new OtherActionButton(" ", 20);
+        btn_pwd = new OtherActionButton(" ", 35);
+        btn_empd = new OtherActionButton(" ", 20);
         btn_pay = new OtherActionButton("PAY", 1);
         otherActionJPanel.setLayout(new GridLayout(2, 3, 5, 5));
         otherActionJPanel.add(btn_senior);
@@ -92,10 +93,12 @@ public class Denomination extends Components {
     }
 
     public List<OtherActionButton> getOtherActionButtons() {
-        return Arrays.asList(this.btn_senior, this.btn_pwd, this.btn_empd, this.btn_pay);
+        return Arrays.asList(this.btn_senior, this.btn_pwd, this.btn_empd);
     }
 
-    
+    public void handle_btn_pay(ActionListener e) {
+        this.btn_pay.addActionListener(e);
+    }
 
     public void setLabelTotal(String value) {
         this.label_total.setText(value);

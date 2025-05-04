@@ -48,13 +48,13 @@ public class SideMenu extends Components {
         add(manage_button, gbc);
 
         // x0,y2
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        configure_button = new JButton("Configure");
-        configure_button.setFont(new Font("Segou UI", Font.BOLD, 14));
-        configure_button.setPreferredSize(Themes.Btn_Regular_Dimension);
-        add(configure_button, gbc);
+        // gbc.gridx = 0;
+        // gbc.gridy = 2;
+        // gbc.fill = GridBagConstraints.HORIZONTAL;
+        // configure_button = new JButton("Configure");
+        // configure_button.setFont(new Font("Segou UI", Font.BOLD, 14));
+        // configure_button.setPreferredSize(Themes.Btn_Regular_Dimension);
+        // add(configure_button, gbc);
 
     }
 
@@ -66,8 +66,8 @@ public class SideMenu extends Components {
         manage_button.addActionListener(e);
     }
 
-    public void handle_configure_button(ActionListener e) {
-        configure_button.addActionListener(e);
-    }
+    // public void handle_configure_button(ActionListener e) {
+    //     configure_button.addActionListener(e);
+    // }
 
 }

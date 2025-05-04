@@ -18,6 +18,7 @@ public class OrderContextModel {
     public void setTotalPayment(double totalPayment) {
         this.totalPayment = totalPayment;
     }
+    
 
     public double getTotalOrderPrice() {
         return totalOrderPrice;

@@ -43,14 +43,15 @@ public class HomeController {
 
         });
 
-        view.getSideMenu().handle_configure_button(new ActionListener() {
+        // view.getSideMenu().handle_configure_button(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.getMainContent().getLayoutUsed().show(view.getMainContent(), "configurePage");
-            }
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // view.getMainContent().getLayoutUsed().show(view.getMainContent(),
+        // "configurePage");
+        // }
 
-        });
+        // });
 
         view.getMainContent().getCounterPage().handleBtnMenu(new ActionListener() {
 
@@ -89,16 +90,73 @@ public class HomeController {
                         if (button.getDenominationValue() == 0) {
                             order.setTotal(0);
                             view.getMainContent().getCounterPage().getDenomination().setLabelTotal("0");
+                            view.getMainContent().getCounterPage().getOrderContextModel().setTotalPayment(0);
+                            view.getMainContent().getCounterPage().getOrderContextModel().setTotalChange(0);
                         } else {
 
                             order.setTotal(order.getTotal() + button.getDenominationValue());
+                            view.getMainContent().getCounterPage().getOrderContextModel()
+                                    .setTotalPayment(order.getTotal());
+                            view.getMainContent().getCounterPage().getOrderContextModel()
+                                    .setTotalChange(view.getMainContent().getCounterPage().getOrderContextModel()
+                                            .getTotalPayment()
+                                            - view.getMainContent().getCounterPage().getOrderContextModel()
+                                                    .getTotalOrderPrice());
                             view.getMainContent().getCounterPage().getDenomination()
                                     .setLabelTotal(
                                             String.valueOf(order.getTotal()));
+                            System.out.println("payment: " +
+                                    view.getMainContent().getCounterPage().getOrderContextModel().getTotalPayment());
+                            System.out
+                                    .println("change: " + view.getMainContent().getCounterPage().getOrderContextModel()
+                                            .getTotalChange());
                         }
                     }
                 }
             });
+        });
+
+        // handle button pay thru controller
+        view.getMainContent().getCounterPage().getDenomination().handle_btn_pay(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (view.getMainContent().getCounterPage().getOrderContextModel().getTotalOrderPrice() <= 0) {
+                    JOptionPane.showMessageDialog(view, "Please select an item to pay.", null, 0);
+                    return;
+
+                }else if(view.getMainContent().getCounterPage().getOrderContextModel().getTotalOrderPrice() > view.getMainContent().getCounterPage().getOrderContextModel().getTotalPayment()){
+
+                    JOptionPane.showMessageDialog(view, "Payment amount does not meet.", "Invalid payment amount", 0);
+
+                } else {
+                    int optionChoosed = JOptionPane.showConfirmDialog(view,
+                            String.format("Do you wish to pay [Php %s ] \nChange: [Php %s ]",
+                                    view.getMainContent().getCounterPage()
+                                            .getOrderContextModel().getTotalPayment(),
+                                    view.getMainContent().getCounterPage()
+                                            .getOrderContextModel().getTotalChange()),
+                            "Pay", 0);
+                    if (optionChoosed == 0) {
+                        view.getMainContent().getCounterPage().getOrderContextModel().resetTotalOrderPrice();
+                        view.getMainContent().getCounterPage().getOrderContextModel().resetTotalPayment();
+                        view.getMainContent().getCounterPage().getOrderContextModel().resetTotalChange();
+                        view.getMainContent().getCounterPage().getDenomination().setLabelTotal("0");
+                        order.setTotal(0);
+                        view.getMainContent().getCounterPage().getTable().clear_table();
+                        view.getMainContent().getCounterPage().getTable().setTotalLabel(String.valueOf(0));
+                        ;
+                        System.out.println("payment: " +
+                                view.getMainContent().getCounterPage().getOrderContextModel().getTotalPayment());
+                        System.out.println("change: " +
+                                view.getMainContent().getCounterPage().getOrderContextModel().getTotalChange());
+                    } else {
+                        System.out.println("cancelled payment.");
+                    }
+                }
+            }
+
         });
 
         List<OtherActionButton> other_btns = view.getMainContent().getCounterPage().getDenomination()
@@ -189,6 +247,10 @@ public class HomeController {
                         case 0:
                             view.getMainContent().getCounterPage().getOrderContextModel().subtractTotalOrderPrice(
                                     view.getMainContent().getCounterPage().getTable().getProductPrice());
+                            view.getMainContent().getCounterPage().getOrderContextModel().setTotalChange(view.getMainContent()
+                                    .getCounterPage().getOrderContextModel().getTotalPayment()
+                                    - view.getMainContent().getCounterPage().getOrderContextModel()
+                                            .getTotalOrderPrice());
                             view.getMainContent().getCounterPage().getTable().setTotalLabel(String.valueOf(
                                     view.getMainContent().getCounterPage().getOrderContextModel()
                                             .getTotalOrderPrice()));
