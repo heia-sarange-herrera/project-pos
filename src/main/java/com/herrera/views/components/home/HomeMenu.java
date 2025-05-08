@@ -20,7 +20,7 @@ public class HomeMenu extends Components {
         sideMenu = new SideMenu("side-menu");
         mainContent = new MainContent("main-menu");
         // other components
-        add(sideMenu, BorderLayout.WEST);
+        // add(sideMenu, BorderLayout.WEST);
         add(mainContent, BorderLayout.CENTER);
     }
 
